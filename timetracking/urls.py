@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.conf.urls import urls
 from rest_framework.urlpatterns import format_suffix_patterns
-from profiles import views
+from timetracking import views
 
 urlpatterns = [
-    url(r'^api/profiles/$', views.ProfilesAPIView.as_view()),
+    urls(r'^api/tracker/$', views.TimeTrackingAPI.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

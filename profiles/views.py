@@ -5,6 +5,7 @@ from profiles.models import *
 from profiles.serializers import ProfilesSerializer
 
 
+@method_decorator(csrf_exempt)
 class ProfilesAPIView(APIView):
     def get(self, request, format=None):
         profiles = Profiles.objects.all()
