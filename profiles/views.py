@@ -5,11 +5,8 @@ from profiles.models import *
 from profiles.serializers import ProfilesSerializer
 
 
-class ProfilesView(APIView):
+class ProfilesAPIView(APIView):
     def get(self, request, format=None):
         profiles = Profiles.objects.all()
         serializer = ProfilesSerializer(profiles, many=True)
         return Response(serializer.data)
-
-
-
