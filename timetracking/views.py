@@ -16,7 +16,7 @@ class TimeTrackingAPIView(APIView):
         except TimeTrackers.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk):
+    def get(self, pk):
         timetracker = self.get_object(pk)
         serializer = TimeTrackingSerializer(timetracker)
         return Response(serializer.data)
@@ -38,12 +38,7 @@ class TimeTrackingAPIView(APIView):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-    def delete(self, request, pk):
+    def delete(self, pk):
         timetracker = self.get_object(pk)
         timetracker.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class What(View):
-    def post(self, request):
-        return HttpResponse('success')
