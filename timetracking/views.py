@@ -1,12 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from timetracking.models import *
 from timetracking.serializers import TimeTrackingSerializer
-from django.http import Http404, HttpResponse
-from django.views import View
+from django.http import Http404
 
 
 class TimeTrackingAPIView(APIView):
