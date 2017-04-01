@@ -1,30 +1,75 @@
-import datetime
-from django.utils import timezone
 from django.db import models
-
-
-class AutoDateTimeField(models.DateTimeField):
-    def pre_save(self, model_instance, add):
-        return datetime.datetime.now()
+from django.conf import *
+from django.core.files.storage import FileSystemStorage
 
 
 class Resources(models.Model):
-    STATEMENT_OF_WORK = 'SOW'
-    PROCESS = 'PRO'
-    SALES_MARKETING = 'SAL'
-    PRPL_BRAND = 'BRA'
-    HR_PAPERWORK = 'HRP'
+    # sow child
+    CONSULTING_AGREEMENT = 'CAG'
+    FACILITY_AGREEMENT = 'FAG'  # what do I do here?
+    MASTER_AGREEMENT = 'MAG'
+    NONDISCLOSURE_AGREEMENT = 'NAG'
 
-    GROUP = (
-        (STATEMENT_OF_WORK, 'Statement of Work / Legal'),
-        (PROCESS, 'Project Process'),
-        (SALES_MARKETING, 'Sales / Marketing'),
-        (PRPL_BRAND, 'PRPL Brand'),
-        (HR_PAPERWORK, 'HR & Paperwork'),
-    )
+    # process child
+    KICK_OFF = 'KOF'
+    DEVELOPMENT = 'DEV'
+    LAUNCH = 'LAU'
+    SUPPORT = 'SUP'
+    TEAMS = 'TEA'
+    SALES = 'SAL'
 
-    group = models.CharField(max_length=3, choices=GROUP)
+    # marketing child
+    ONE_SHEET = 'OSH'
+    PITCH_DECK = 'PDE'
+    PROPOSALS = 'PRO'
+
+    # brand child
+    ASSETS = 'ASS'  # don't blame me if you have a problem with my naming conventions
+    STYLE_GUIDE = 'SGU'
+    TEMPLATES = 'TEM'
+
+    # other & HR
+    OTHER = 'OTH'
+
+    RESOURCES_GROUP = ([
+        ('Statement of Work / Legal', [
+            (CONSULTING_AGREEMENT, 'Consulting Services Agreement'),
+            (FACILITY_AGREEMENT, 'Facility License Agreement'),
+            (MASTER_AGREEMENT, 'Master Services Agreement'),
+            (NONDISCLOSURE_AGREEMENT, 'Non-Disclosure Agreement (NDA)'),
+            (OTHER, 'Other'),
+         ]),
+        ('Project Process', [
+            (KICK_OFF, 'Kick Off'),
+            (DEVELOPMENT, 'Development'),
+            (LAUNCH, 'Launch'),
+            (SUPPORT, 'Support'),
+            (OTHER, 'Other'),
+         ]),
+        ('Sales / Marketing', [
+            (ONE_SHEET, 'One-Sheets'),
+            (PITCH_DECK, 'Pitch / Capabilities Decks'),
+            (PROPOSALS, 'Proposals'),
+            (OTHER, 'Other'),
+         ]),
+        ('PRPL Brand', [
+            (ASSETS, 'Assets'),
+            (STYLE_GUIDE, 'Style Guides'),
+            (TEMPLATES, 'Templates'),
+            (OTHER, 'Other'),
+         ]),
+        ('HR & Paperwork', [
+            (OTHER, 'Other'),
+         ]),
+    ])
+
     filename = models.CharField(max_length=1024)
+    file = models.FileField(
+        storage=FileSystemStorage(location=settings.MEDIA_ROOT),
+        upload_to='resources/',
+        default='settings.MEDIA_ROOT/resources/default.jpg'
+    )
+    resources_group = models.CharField(max_length=3, choices=RESOURCES_GROUP, blank=True)
     profile = models.ForeignKey('profiles.profiles')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

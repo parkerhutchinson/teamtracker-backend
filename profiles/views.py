@@ -7,7 +7,7 @@ from profiles.serializers import ProfilesSerializer
 
 
 @method_decorator(csrf_exempt, name='get')
-class ProfilesAPIView(APIView):
+class ProfilesAllAPIView(APIView):
     def get(self, request, format=None):
         profiles = Profiles.objects.all()
         serializer = ProfilesSerializer(profiles, many=True)
