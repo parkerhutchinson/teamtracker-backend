@@ -1,3 +1,12 @@
 from django.contrib import admin
+from resources.models import *
 
-# Register your models here.
+
+class ResourcesAdmin(admin.ModelAdmin):
+    list_display = ['file', 'filename', 'resources_group', 'profile']
+
+    def related_profile(self, obj):
+        return obj.profile.first_name
+
+admin.site.register(Resources, ResourcesAdmin)
+

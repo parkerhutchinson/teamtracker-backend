@@ -73,3 +73,6 @@ class Resources(models.Model):
     profile = models.ForeignKey('profiles.profiles')
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.filename

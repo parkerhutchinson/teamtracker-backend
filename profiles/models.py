@@ -54,3 +54,6 @@ class Profiles(models.Model):
     instagram_handle = models.CharField(max_length=96)
     pinterest_handle = models.CharField(max_length=96)
     steam_handle = models.CharField(max_length=96)
+
+    def __str__(self):
+        return self.email
