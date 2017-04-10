@@ -14,7 +14,7 @@ class ResourcesAPIView(APIView):
             raise Http404
 
     def get(self, request, pk):
-        resource = self.get_object(self, pk)
+        resource = Resources.objects.all().filter(profile=pk)
         serializer = ResourceSerializer(resource, many=True)
         return Response(serializer.data)
 
@@ -43,6 +43,6 @@ class ResourcesAPIView(APIView):
 
 class ResourcesAllAPIView(APIView):
     def get(self, pk):
-        resources = Resources.objects.all()
+        resources = Resources.objects.all().filter(profile__isnull=True)
         serializer = ResourceSerializer(resources, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

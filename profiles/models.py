@@ -56,4 +56,4 @@ class Profiles(models.Model):
     steam_handle = models.CharField(max_length=96)
 
     def __str__(self):
-        return self.email
+        return "{0} {1}".format(self.first_name, self.last_name)
