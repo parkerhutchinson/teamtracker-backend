@@ -6,12 +6,17 @@ from resources.serializers import ResourceSerializer
 from django.http import Http404
 
 
-class ResourceAPIView(APIView):
+class ResourcesAPIView(APIView):
     def get_object(self, pk):
         try:
             return Resources.objects.get(pk=pk)
         except Resources.DoesNotExist:
             raise Http404
+
+    def get(self, pk):
+        resource = self.get_object(self, pk)
+        serializer = ResourceSerializer(resource, many=True)
+        return Response(serializer.data)
 
     def post(self, request, pk):
         serializer = ResourceSerializer(data=request.data)
@@ -20,11 +25,6 @@ class ResourceAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, pk):
-        resource = self.get_object(self, pk)
-        serializer = ResourceSerializer(resource)
-        return Response(serializer.data)
 
     def delete(self, pk):
         resource = self.get_object(self, pk)
@@ -39,3 +39,10 @@ class ResourceAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ResourcesAllAPIView(APIView):
+    def get(self):
+        resources = Resources.objects.all()
+        serializer = ResourceSerializer(resources, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -70,7 +70,7 @@ class Resources(models.Model):
         default='settings.MEDIA_ROOT/resources/default.jpg'
     )
     resources_group = models.CharField(max_length=3, choices=RESOURCES_GROUP, blank=True)
-    profile = models.ForeignKey('profiles.profiles')
+    profile = models.ForeignKey('profiles.profiles', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
