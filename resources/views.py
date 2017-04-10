@@ -13,12 +13,12 @@ class ResourcesAPIView(APIView):
         except Resources.DoesNotExist:
             raise Http404
 
-    def get(self, pk):
+    def get(self, request, pk):
         resource = self.get_object(self, pk)
         serializer = ResourceSerializer(resource, many=True)
         return Response(serializer.data)
 
-    def post(self, request, pk):
+    def post(self,  pk):
         serializer = ResourceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -42,7 +42,7 @@ class ResourcesAPIView(APIView):
 
 
 class ResourcesAllAPIView(APIView):
-    def get(self):
+    def get(self, pk):
         resources = Resources.objects.all()
         serializer = ResourceSerializer(resources, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

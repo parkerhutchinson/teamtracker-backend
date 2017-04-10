@@ -7,15 +7,16 @@ from django.http import Http404
 
 
 class TimeTrackingAPIView(APIView):
+    @staticmethod
     def get_object(self, pk):
         try:
             return TimeTrackers.objects.get(pk=pk)
         except TimeTrackers.DoesNotExist:
             raise Http404
 
-    def get(self, pk):
-        timetracker = self.get_object(pk)
-        serializer = TimeTrackingSerializer(timetracker)
+    def get(self, request, pk):
+        timetracker = TimeTrackers.objects.all().filter(profile=pk)
+        serializer = TimeTrackingSerializer(timetracker, many=True)
         return Response(serializer.data)
 
     def post(self, request):

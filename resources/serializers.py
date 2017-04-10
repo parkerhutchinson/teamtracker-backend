@@ -4,5 +4,5 @@ from resources.models import *
 
 class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
-        models = Resources
+        model = Resources
         fields = ('id', 'filename', 'file', 'resources_group', 'profile')
