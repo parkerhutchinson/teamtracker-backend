@@ -46,7 +46,7 @@ class Profiles(models.Model):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
     email = models.CharField(max_length=128)
-    profile_image = models.ImageField(max_length=128)
+    profile_image = models.ImageField(max_length=128, upload_to="profiles/")
     bio = models.TextField()
     department = models.CharField(max_length=3, choices=DEPARTMENTS)
     title = models.CharField(max_length=96)
