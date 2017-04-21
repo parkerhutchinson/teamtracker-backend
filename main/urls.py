@@ -5,5 +5,5 @@ urlpatterns = [
     url(r'^', include('profiles.urls')),
     url(r'^', include('timetracking.urls')),
     url(r'^', include('resources.urls')),
-    url(r'^', IndexView.as_view()),
+    url(r'^$', IndexView.as_view()),
 ]

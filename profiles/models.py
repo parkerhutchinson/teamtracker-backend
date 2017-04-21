@@ -1,5 +1,7 @@
 import datetime
 from django.db import models
+from django.utils.html import format_html
+from django.conf import *
 
 
 class Profiles(models.Model):
@@ -49,11 +51,17 @@ class Profiles(models.Model):
     department = models.CharField(max_length=3, choices=DEPARTMENTS)
     title = models.CharField(max_length=96)
     team_group = models.CharField(max_length=3, choices=TEAMS)
-    twitter_handle = models.CharField(max_length=96)
-    overwatch_handle = models.CharField(max_length=96)
-    instagram_handle = models.CharField(max_length=96)
-    pinterest_handle = models.CharField(max_length=96)
-    steam_handle = models.CharField(max_length=96)
+    twitter_handle = models.CharField(max_length=96, blank=True)
+    overwatch_handle = models.CharField(max_length=96, blank=True)
+    instagram_handle = models.CharField(max_length=96, blank=True)
+    pinterest_handle = models.CharField(max_length=96, blank=True)
+    steam_handle = models.CharField(max_length=96, blank=True)
 
     def __str__(self):
-        return "{0} {1}".format(self.first_name, self.last_name)
+        return "{0}".format(self.email)
+
+    def profile_image_inline(self):
+        return format_html(
+            '<img src="{}" width="400px"/>',
+            '{0}{1}'.format('/files/', self.profile_image),
+        )
