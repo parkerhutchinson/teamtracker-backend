@@ -44,6 +44,7 @@ class Resources(models.Model):
             (DEVELOPMENT, 'Development'),
             (LAUNCH, 'Launch'),
             (SUPPORT, 'Support'),
+            (TEAMS, 'Teams'),
             (OTHER, 'Other'),
          ]),
         ('Sales / Marketing', [
