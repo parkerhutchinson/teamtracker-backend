@@ -63,5 +63,5 @@ class Profiles(models.Model):
     def profile_image_inline(self):
         return format_html(
             '<img src="{}" width="400px"/>',
-            '{0}{1}'.format('/files/', self.profile_image),
+            '{0}{1}'.format(settings.MEDIA_URL, self.profile_image),
         )
