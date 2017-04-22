@@ -4,6 +4,10 @@ from django.core.files.storage import FileSystemStorage
 
 
 class Resources(models.Model):
+    # resource types
+    LINK = 'LNK'
+    FILE = 'FLE'
+
     # sow child
     CONSULTING_AGREEMENT = 'CAG'
     FACILITY_AGREEMENT = 'FAG'  # what do I do here?
@@ -64,12 +68,20 @@ class Resources(models.Model):
          ]),
     ])
 
-    filename = models.CharField(max_length=1024)
+    RESOURCE_TYPE = (
+        (LINK, 'Link'),
+        (FILE, 'File'),
+    )
+
+    name = models.CharField(max_length=1024)
+    type = models.CharField(max_length=3, choices=RESOURCE_TYPE)
     file = models.FileField(
         storage=FileSystemStorage(location=settings.MEDIA_ROOT),
         upload_to='resources/',
-        default='settings.MEDIA_ROOT/resources/default.jpg'
+        default='settings.MEDIA_ROOT/resources/default.jpg',
+        null=True,
     )
+    url = models.CharField(max_length=1024, blank=True)
     resources_group = models.CharField(max_length=3, choices=RESOURCES_GROUP, blank=True)
     profile = models.ForeignKey('profiles.profiles', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
