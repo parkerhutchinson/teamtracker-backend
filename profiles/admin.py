@@ -3,7 +3,7 @@ from profiles.models import *
 
 
 class ProfilesAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email',  'title',
+    list_display = ('profile_image_list_display', 'first_name', 'last_name', 'email',  'title',
                     'department', 'team_group', )
 
     fields = ('first_name', 'last_name', 'email', 'profile_image_inline', 'profile_image', 'title',

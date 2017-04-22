@@ -65,3 +65,11 @@ class Profiles(models.Model):
             '<img src="{}" width="400px"/>',
             '{0}{1}'.format(settings.MEDIA_URL, self.profile_image),
         )
+
+    def profile_image_list_display(self):
+        return format_html(
+            '<img src="{}" width="20px"/>',
+            '{0}{1}'.format(settings.MEDIA_URL, self.profile_image),
+        )
+
+    profile_image_list_display.short_description = 'Profile Image'
