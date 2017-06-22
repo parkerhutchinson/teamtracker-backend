@@ -78,8 +78,8 @@ class Resources(models.Model):
     file = models.FileField(
         storage=FileSystemStorage(location=settings.MEDIA_ROOT),
         upload_to='resources/',
-        default='settings.MEDIA_ROOT/resources/default.jpg',
         null=True,
+        blank=True,
     )
     url = models.CharField(max_length=1024, blank=True)
     resources_group = models.CharField(max_length=3, choices=RESOURCES_GROUP, blank=True)
@@ -88,5 +88,5 @@ class Resources(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.filename
+        return self.name
 
